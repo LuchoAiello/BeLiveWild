@@ -1,0 +1,86 @@
+<header class="main-header">
+    <nav class="nav">
+      <div class="mobile-nav-bar">
+        <div class="left-side">
+          <div class="container">
+            <div class="subcontainer">
+              <nav>
+                <ul class="nav-menu navBurgerMenu">
+                  <li class="nav-item">
+                    <div class='burgerMenuContent'></div>
+                    <form action="/productos/resultados" method="GET">
+                        <label for="producto" class='burguerMenuContentTitle'>Buscá un producto</label>
+                        <input type="text" name="producto" id="producto" class='burgerMenuContentInput'>
+                        <button class="boton-buscar burgerMenuContentButton" type="submit">Buscar</button>
+                    </form>
+                  </li>
+                  <li class="nav-item ">
+                    <a href="/productos" class='burgerMenuContentLinkTittle'>Todos los productos</a>
+                    <ul class='burgerMenuContentLink'>
+                      <li><a href="/productos/categoria?n=7" class="nav-link ">Shorts de baño</a></li>
+                      <br>
+                      <li><a href="/productos/categoria?n=5" class="nav-link ">Pantalones</a></li>
+                      <br>
+                      <li><a href="/productos/categoria?n=6" class="nav-link ">Zapatillas</a></li>
+                      <br>
+                      <li><a href="/productos/categoria?n=8" class="nav-link ">Camperas</a></li>
+                      <br>
+                      <li><a href="/productos/categoria?n=9" class="nav-link ">Remeras</a></li>
+                      <br>
+                      <li><a href="/productos/categoria?n=10" class="nav-link ">Gorros</a></li>
+                
+                    </ul>
+                  </li>
+                  <% if(!locals.userLogged){ %>
+                    <li class="nav-item burgerMenuContent">
+                      <a href="/usuario/login" class="nav-link burguerA burgerMenuContentLogin">Login/Register</a>
+                    </li>
+                  <% } else if (locals.userLogged){%>
+                    <li class="nav-item">
+                      <a href="/productos/carrito" class="nav-link burguerA burgerMenuContentLogin">Carrito</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/usuario/logout" class="nav-link burguerA burgerMenuContentLoginA">Cerrar sesión</a>
+                    </li>
+                  <% } %>
+                </ul>
+              <div class='moveBurger'>
+                <div class="hamburger">
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div class="logo">
+          <a href="/"><p>BE/LIVE WILD</p></a>
+        </div>
+        <div class="right-side">
+          <div class="icons-top">
+            <% if (locals.userLogged) { %>
+              <a href="/usuario/mi-cuenta/<%=userLogged.id%>"><img src="/images/avatars/<%= locals.userLogged.user_image %>" width="45" height="45" style="border-radius: 20%;">
+                <br>
+               <small><%= locals.userLogged.first_name %></small></a>
+               <div class='icons-bottom'>
+               <a href="/productos/carrito"><i class="fas fa-shopping-cart carrito"></i></a>
+               <a href='/usuario/logout'><i class="fas fa-sign-out-alt carrito"></i></a>
+              </div>
+            <% } else { %>
+              <div class='icons-bottom'>
+              <a href="/usuario/login"><i class="fas fa-user carrito"></i></a>
+              <a href="/productos/carrito"><i class="fas fa-shopping-cart carrito"></i></a>
+            </div>
+            <% } %>
+          </div>
+          <div class="icons-bottom">
+            <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <%- include('../partials/head', {titulo:'Todos los productos', css: 'list'}) %>
+  <body>
+    <%- include('../partials/header') %>
+    <main class="main-list">
+      <h2>Todos los Productos</h2>
+      <% if(locals.userLogged && locals.userLogged.function_id == 1){ %> 
+        <div class="new-product-div">
+          <a href="/productos/crear/" class="new-product-button"><strong>CREAR PRODUCTO NUEVO</strong></a>
+        </div>
+        <% } %>
+      <div class="products-list">
+      <% products.forEach(product=>{ %>
+      <section class="product">
+        <a href="/productos/detalle/<%= product.id%>" class="product-detail">
+          <div class="product-image">
+            <img alt="imagen de producto" src="/images/<%=product.product_image%>">
+          </div>
+          <article class="product-data" style = <%= !locals.userLogged ||(locals.userLogged && locals.userLogged.function_id != 1) ? 'margin:auto;text-align:center' : '' %>>
+              <p><strong><%= product.title %></strong></p>
+              <% if(locals.userLogged && locals.userLogged.function_id == 1){ %>
+                <p><strong>Descripcion: </strong> <%= product.description %></p>
+              <% } %>
+              <p><strong>Categoría: </strong>
+                <% categories.forEach(cate=>{ %>
+                  <%= product.category_id == cate.id ? cate.category : null %>
+                <% }) %>
+              </p>
+              
+              <% if(product.discount == 0){ %>
+                <p><strong>$<%=product.price%></strong></p>
+              <% } else {%>
+                <span style="text-decoration: line-through;margin-right: 10px;">$<%=product.price%></span><span style="color: rgb(16, 182, 16);"><strong>$<%= product.price * (100-product.discount)/100 %></strong></span>
+                <p><strong><%=product.discount%>% OFF</strong> </p>
+              <% } %>
+          </article>
+        </a>
+        <div class="edit-delete-buttons">
+          <% if(locals.userLogged && locals.userLogged.function_id == 1){ %> 
+          <div class="edit-delete-button-div">
+            <a href="/productos/editar/<%= product.id%>/" class="edit-button"><strong>Editar</strong></a>
+            <form action="/productos/detalle/<%=product.id%>?_method=DELETE" method="POST" class="delete-form">
+              <button type="submit" class="delete-button"><strong>Eliminar</strong></button>
+            </form>
+          </div>
+          <%}%>
+        </div>
+      </section>
+      <% }) %>
+    </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

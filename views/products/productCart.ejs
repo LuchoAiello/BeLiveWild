@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head.ejs',{titulo:'Carrito', css:'productCart'})%>
+  <body>
+    <%- include('../partials/header.ejs') %> 
+    <main>
+        <section>
+            <h2 class="text-cart">Carrito</h2>
+        </section>
+        <article class="product-cart">
+            <div class="img-cart">
+             <img src="/images/product_1641673907492.jpg" alt="foto del producto">
+            </div>
+            <form class="size-color" method="POST">
+                <div>
+                    <label>Talle:</label>
+                    <select name="talle" class="size">
+                        <option value="talle1">S</option>
+                        <option value="talle2">M</option>
+                        <option value="talle3">L</option>
+                        <option value="talle4">XL</option>
+                        <option value="talle5">XXL</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Color:</label>
+                    <select name="color" class="color">
+                        <option value="color1">Negro</option>
+                        <option value="color2">Blanco</option>
+                        <option value="talle3">Marron</option>
+                        <option value="talle4">Azul</option>
+                    </select>
+                </div>
+                </form>
+                <div class="price-amount">
+                   <p>Precio</p>
+                    <form class="amount-product" method="POST">
+                        <label>Cantidad</label>
+                        <select name="cantidad" class="amount">
+                            <option value="1">1</option>
+                            <option value="1">2</option>
+                            <option value="1">3</option>
+                            <option value="1">4</option>
+                        </select>
+                    </form>
+                   <p>Subtotal</p>
+                </div>
+                <div class="trash-can">
+                <i class="fas fa-trash"></i>
+             </div>
+        </article>
+        <article class="product-cart">
+            <div class="img-cart">
+             <img src="/images/product_1641735457984.jpg" alt="foto del producto">
+            </div>
+            <form class="size-color" method="POST">
+                <div>
+                    <label>Talle:</label>
+                    <select name="talle" class="size">
+                        <option value="talle1">S</option>
+                        <option value="talle2">M</option>
+                        <option value="talle3">L</option>
+                        <option value="talle4">XL</option>
+                        <option value="talle5">XXL</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Color:</label>
+                    <select name="color" class="color">
+                        <option value="color1">Negro</option>
+                        <option value="color2">Blanco</option>
+                        <option value="talle3">Marron</option>
+                        <option value="talle4">Azul</option>
+                    </select>
+                </div>
+                </form>
+                <div class="price-amount">
+                   <p>Precio</p>
+                    <form class="amount-product" method="POST">
+                        <label>Cantidad</label>
+                        <select name="cantidad" class="amount">
+                            <option value="1">1</option>
+                            <option value="1">2</option>
+                            <option value="1">3</option>
+                            <option value="1">4</option>
+                        </select>
+                    </form>
+                   <p>Subtotal</p>
+                </div>
+                <div class="trash-can">
+                <i class="fas fa-trash"></i>
+             </div>
+        </article>
+       </section>
+       <section class ="summary-code">
+        <article class="summary-cart">
+            <div><h2>Resumen</h2></div>
+            <div class='summary-cartP'><p>Subtotal $</p>
+                 <p>Total $</p>
+                 <p>Envio $</p>
+             </div>
+             <div><h3>Codigo de descuento</h3>
+               <form class="discount-cart">
+                <input tpye="text" name="codigo-de-descuento">
+                <button type="submit" class="button-discount"><p>Aplicar</p></button>
+             </form>
+            </div>
+            <div><h2>Total del pedido</h2>
+                <p>$</p>
+            </div>
+            <form class="button-cart" method="POST">
+              <a href="/home"><button type="submit" class="button-cart"><p>Finalizar Pedido</p></button></a>
+            </form>
+            </article>
+        </section>
+    </main>
+    <%- include('../partials/footer.ejs') %> 
+</body>
+</html>
+

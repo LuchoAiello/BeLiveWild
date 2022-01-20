@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <%- include('../partials/head.ejs',{titulo: product.title, css:'productDetail'})%>
+  <body>
+    <%- include('../partials/header.ejs') %> 
+    <main>
+      <section class="product">
+        <div class='mainDetail'>
+        <div class="product-photos">
+          <div class="main-photo">
+            <img src="/images/<%= product.product_image%>" alt= <%=product.nombre%> >
+          </div>
+          <div class="gallery-product">
+          </div>
+        </div>
+        <div class="product-price-and-form">
+          <div class="product-details">
+            <h2 class="product-name"><%=product.title %></h2>
+            <h4>EN STOCK</h4>
+            <h2 class="price">$<%= product.price%></h2>
+            <% if(product.discount != 0 ){ %>
+              <h3 class="discount"><%= product.discount%>% descuento</h3>
+              <h2 class="price">$ <%= product.price * (100-product.discount)/100 %></h2>
+            <% } %>
+            <h4>3 y 6 cuotas sin interés</h4>
+            <p>Según la promo de tu tarjeta/banco</p>
+            <a href="#">Calcular cuotas</a>
+          </div>
+          <div class="product-add-form">
+          <form action="/product-form" method="POST">
+            <% if (product.category_id != 1 && product.category_id != 2 && product.category_id != 3 && product.category_id != 4){%>
+              <div class="color">
+                <label for="color"><strong>Color</strong></label>
+                <select name="color" id="color">
+                  <option value="" disabled selected>Elegí un color</option>
+                    <% colors.forEach(color=> { %>
+                      <option value="<%= color.id %>"<%= locals.errors && (color.id == oldData.color) ? 'selected'  : null%>><%= color.color %></option>
+                    <% }) %>
+                </select>
+              </div>
+              <div class="talle">
+                <label for="size"><strong>Talle</strong></label>
+                <select name="size" id="size">
+                  <option value="" disabled selected>Elegí un talle</option>
+                    <% sizes.forEach(size=> { %>
+                      <option value="<%= size.id %>"<%= locals.errors && (size.id == oldData.size) ? 'selected'  : null%>><%= size.size %></option>
+                    <% }) %>
+                </select>
+              </div>
+            <% } %>
+            
+            <div class="add-to-cart-button">
+             <button type="submit"><h4><a href='/productos/carrito' class='bottomAddCart'>AGREGAR AL CARRITO</a></h4></button>
+            </div>
+          </form>
+          </div>
+          <div class="product-info">
+          <h2>Detalle del producto</h2>
+          <p>
+            <%=product.description%>
+          </p>
+          </div>
+        </div>
+      </div>
+      </section>
+        <h2 class="top-productsDetail-title">PRODUCTOS RELACIONADOS</h2>
+        <div class="slick-list" id="slick-list">
+          <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left" class="svg-inline--fa fa-chevron-left fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg>
+          </button>
+          <div class="slick-track" id="track">
+            <% products.forEach(item =>{ %>
+              <div class="slick">
+                <div>
+                    <a class='carruselCss' href="/productos/detalle/<%=item.id%>">
+                        <h4 class='h4carruselCss'><%=item.title%></h4>
+                        <picture>
+                            <img src="/images/<%=item.product_image%>" alt="Image">
+                        </picture>
+                    </a>
+                </div>
+            </div>
+            <% })%>  
+            
+<!-- 
+              <div class="slick">
+                  <div>
+                      <a class='carruselCss'href="/">
+                          <h4 class='h4carruselCss'>Campera</h4>
+                          <picture>
+                              <img src="/images/campera1.jpg" alt="Image">
+                          </picture>
+                      </a>
+                  </div>
+              </div>
+              <div class="slick">
+                  <div>
+                      <a class='carruselCss' href="/">
+                          <h4 class='h4carruselCss'>Pantalon</h4>
+                          <picture>
+                              <img src="/images/pantalon2.jpg" alt="Image">
+                          </picture>
+                      </a>
+                  </div>
+              </div>
+              <div class="slick">
+                  <div>
+                      <a class='carruselCss' href="/">
+                          <h4 class='h4carruselCss'>Gorro</h4>
+                          <picture>
+                              <img src="/images/gorro1.jpg" alt="Image">
+                          </picture>
+                      </a>
+                  </div>
+              </div>
+              <div class="slick">
+                  <div>
+                      <a class='carruselCss'href="/">
+                          <h4 class='h4carruselCss'>Campera con capucha</h4>
+                          <picture>
+                              <img src="/images/jacket.jpg" alt="Image">
+                          </picture>
+                      </a>
+                  </div>
+              </div>
+              <div class="slick">
+                <div>
+                    <a class='carruselCss' href="/">
+                        <h4 class='h4carruselCss'>Campera</h4>
+                        <picture>
+                            <img src="/images/campera1.jpg" alt="Image">
+                        </picture>
+                    </a>
+                </div>
+            </div>
+            <div class="slick">
+              <div>
+                  <a class='carruselCss' href="/">
+                      <h4 class='h4carruselCss' >Campera></h4>
+                      <picture>
+                          <img src="/images/campera1.jpg" alt="Image">
+                      </picture>
+                  </a>
+              </div>
+          </div>
+          <div class="slick">
+            <div>
+                <a class='carruselCss' href="/">
+                    <h4 class='h4carruselCss'>Campera</h4>
+                    <picture>
+                        <img src="/images/campera1.jpg" alt="Image">
+                    </picture>
+                </a>
+            </div>
+        </div>
+              <div class="slick">
+                <div>
+                    <a class='carruselCss' href="/">
+                        <h4 class='h4carruselCss' >Gorro</h4>
+                        <picture>
+                            <img src="/images/gorro1.jpg" alt="Image">
+                        </picture>
+                    </a>
+                </div>
+            </div> -->
+        </div>
+        <button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" class="svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg>
+        </button>
+    </div>
+        </div>
+      </div>
+    </main>
+    <%- include('../partials/footer.ejs') %> 
+  </body>
+</html>

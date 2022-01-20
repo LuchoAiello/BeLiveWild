@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <%- include('../partials/head', {titulo:'Editar producto', css: 'edit'}) %>
+  <body>
+    <%- include('../partials/header') %>
+    <main class="edit-form">
+      <h2>Editar producto <%= Product.title%></h2>
+      <form action="/productos/detalle/<%=Product.id%>?_method=PUT" method="POST" class="edit-product-form" enctype="multipart/form-data">
+        <section class="form-section-left">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" value= "<%= locals.oldData ? oldData.name : Product.title %>" id="name">
+            <div>
+              <small class="text-danger error-name"></small>
+            </div>
+            <% if (locals.errors && errors.name) { %>
+              <div class="text-danger">
+                <%= errors.name.msg %> 
+              </div>
+            <% } %>
+            <label for="description">Descripción</label>
+            <textarea name="description" id="description" rows="5"><%= Product.description%></textarea>
+            <div>
+              <small class="text-danger error-description"></small>
+            </div>
+            <% if (locals.errors && errors.description) { %>
+              <div class="text-danger">
+                <%= errors.description.msg %> 
+              </div>
+            <% } %>
+            <label for="image">Imagen</label>
+            <input type="file" name="image" accept=".JPG,.JPEG,.PNG,.GIF" id="image">
+            <div>
+              <small class="text-danger error-image"></small>
+            </div>
+            <% if (locals.errors && errors.image) { %>
+              <div class="text-danger">
+                <%= errors.image.msg %> 
+              </div>
+            <% } %>
+            <label for="category">Categoría</label>
+            <select name="category" id="category" class="category">
+              <option value="" disabled >Selecciona una categoría</option>
+              <% allCategories.forEach(category => { %>
+              <option value="<%= category.id %>" <%= category.id == Product.category_id ? 'selected'  : null%>><%= category.category %></option>
+              <% }); %>
+            </select>
+        </section>
+        <section class="form-section-right">
+            <p>Colores<p>
+              <div class='colorSelect'>
+              <% allColors.forEach(color => { %>
+                <input type="checkbox" name="color" id="<%=color.id%>>" value="<%=color.id%>">
+                <label for="<%=color.id%>>"><%=color.color%></label>
+              <% }) %>
+            </div>
+            <p>Talles<p>
+              <div class='colorSelect'>
+              <% allSizes.forEach(size => { %>
+                <input type="checkbox" name="size" id="<%=size.id%>" value="<%=size.id%>">
+                <label for="<%=size.id%>>"><%=size.size%></label>
+              <% }) %><br>
+            </div>
+              <label for="season">Temporada</label>
+              <select name="season" id="season" class="category">
+                <option value="" disabled selected>Selecciona una temporada</option>
+                <% allSeasons.forEach(season => { %>
+                <option value="<%= season.id %>" <%= season.id == Product.season_id ? 'selected'  : null%>><%= season.season %></option>
+                <% }); %>
+              </select>
+              <label for="gender">Género</label>
+              <select name="gender" id="gender" class="category">
+                <option value="" disabled selected>Selecciona un género</option>
+                <option value="Femenino"  <%= 'Femenino' == Product.gender ? 'selected'  : null%>>Femenino</option>
+                <option value="Masculino"  <%= 'Masculino' == Product.gender ? 'selected'  : null%>>Masculino</option>
+              </select>
+            <label for="price">Precio</label><br>
+            <input type="number" name="price" id="price" value=<%= Product.price%>><br>
+            <label for="discount" class="price">Descuento</label>
+            <input type="number" name="discount" id="discount" value=<%= Product.discount%>><br>
+        </section>
+        <div>
+          <button type="submit" class="edit-product-button">EDITAR PRODUCTO</button>
+        </div>
+      </form>
+    </main>
+    <%- include('../partials/footer') %>
+    <script src="/js/productEditValid.js"></script>
+  </body>
+</html>
